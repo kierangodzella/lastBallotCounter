@@ -44,7 +44,7 @@ def calc_margin(dataframe, state: str):
         lambda row: row['Remaining D'] - row['Remaining R'], axis=1
     )
     d_margin_sum = np.floor(df_out['D margin'].sum())
-    print(f"\nestimated final Joe lead in {state}: ", d_margin_sum)
+    print(f"\nestimated Democratic margin (remaining votes) in {state}: ", d_margin_sum)
     return d_margin_sum
 
 
@@ -56,7 +56,11 @@ if __name__ == '__main__':
     table_NV = pd.read_html(
         'https://www.nytimes.com/interactive/2020/11/03/us/elections/results-nevada-president.html'
     )
-    GA_margin = calc_margin(table_GA[2], "Georgia")
-    PA_margin = calc_margin(table_PA[2], "Pennsylvania")
-    NV_margin = calc_margin(table_PA[2], "Nevada")
+    table_AZ = pd.read_html(
+        'https://www.nytimes.com/interactive/2020/11/03/us/elections/results-arizona-president.html'
+    )
+    GA_margin = calc_margin(table_GA[1], "Georgia")
+    PA_margin = calc_margin(table_PA[1], "Pennsylvania")
+    NV_margin = calc_margin(table_PA[1], "Nevada")
+    AZ_margin = calc_margin(table_AZ[1], "Arizona")
 
